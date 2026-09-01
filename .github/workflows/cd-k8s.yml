@@ -1,0 +1,44 @@
+name: CD (kind cluster — manifest bump)
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+    branches: [main]
+
+jobs:
+  bump-manifests:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && vars.DEPLOY_ENABLED == 'true' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Pin backend + frontend images to commit SHA
+        env:
+          SHA: ${{ github.event.workflow_run.head_sha }}
+          DOCKER_USER: ${{ secrets.DOCKERHUB_USERNAME }}
+        run: |
+          if [ -z "$DOCKER_USER" ]; then
+            echo "ERROR: DOCKERHUB_USERNAME secret is not set."
+            exit 1
+          fi
+          sed -i "s|image: ${DOCKER_USER}/skillpulse-backend:.*|image: ${DOCKER_USER}/skillpulse-backend:${SHA}|"  k8s/20-backend.yaml
+          sed -i "s|image: ${DOCKER_USER}/skillpulse-frontend:.*|image: ${DOCKER_USER}/skillpulse-frontend:${SHA}|" k8s/30-frontend.yaml
+
+      - name: Commit + push if changed
+        env:
+          SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet; then
+            echo "Manifests already pinned to ${SHA}; nothing to commit."
+            exit 0
+          fi
+          git add k8s/20-backend.yaml k8s/30-frontend.yaml
+          git commit -m "deploy: pin backend+frontend to ${SHA:0:7}"
+          git push

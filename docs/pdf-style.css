@@ -1,0 +1,182 @@
+@page {
+    size: A4;
+    margin: 22mm 20mm 22mm 20mm;
+    @bottom-center {
+        content: counter(page) " / " counter(pages);
+        font-family: -apple-system, "Helvetica Neue", sans-serif;
+        font-size: 9pt;
+        color: #888;
+    }
+}
+
+* { box-sizing: border-box; }
+
+html { font-size: 11pt; }
+
+body {
+    font-family: "Charter", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+    line-height: 1.55;
+    color: #1d1d1f;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+    font-family: -apple-system, "Helvetica Neue", "Segoe UI", sans-serif;
+    color: #0b2a4a;
+    line-height: 1.2;
+    page-break-after: avoid;
+}
+
+h1 {
+    font-size: 24pt;
+    margin: 0 0 0.6em;
+    border-bottom: 2px solid #0b2a4a;
+    padding-bottom: 0.2em;
+    page-break-before: always;
+}
+
+h1:first-of-type {
+    page-break-before: avoid;
+}
+
+h2 {
+    font-size: 16pt;
+    margin: 1.6em 0 0.5em;
+    color: #0b2a4a;
+}
+
+h3 {
+    font-size: 13pt;
+    margin: 1.3em 0 0.4em;
+    color: #1c4a7e;
+}
+
+h4 {
+    font-size: 11pt;
+    margin: 1em 0 0.3em;
+    color: #2c5e9c;
+}
+
+p {
+    margin: 0 0 0.8em;
+    text-align: left;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+}
+
+ul, ol {
+    margin: 0 0 0.8em;
+    padding-left: 1.4em;
+}
+
+li { margin: 0.2em 0; }
+
+a { color: #0b2a4a; text-decoration: none; border-bottom: 1px solid #c7d3e0; }
+
+strong { color: #0b2a4a; }
+
+blockquote {
+    border-left: 3px solid #0b2a4a;
+    margin: 1em 0;
+    padding: 0.4em 1em;
+    background: #f4f7fb;
+    color: #1d1d1f;
+    page-break-inside: avoid;
+}
+
+blockquote p { margin: 0.3em 0; }
+
+code {
+    font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.88em;
+    background: #f0f2f5;
+    color: #b03060;
+    padding: 0.08em 0.35em;
+    border-radius: 3px;
+}
+
+pre {
+    background: #f7f8fa;
+    border: 1px solid #e2e6ec;
+    border-radius: 5px;
+    padding: 0.9em 1em;
+    overflow-x: auto;
+    page-break-inside: avoid;
+    line-height: 1.4;
+}
+
+pre code {
+    background: transparent;
+    color: #1d1d1f;
+    padding: 0;
+    font-size: 0.85em;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0.8em 0;
+    font-size: 0.92em;
+    page-break-inside: avoid;
+}
+
+th, td {
+    text-align: left;
+    padding: 0.5em 0.7em;
+    border-bottom: 1px solid #e2e6ec;
+    vertical-align: top;
+}
+
+th {
+    background: #f0f3f7;
+    font-family: -apple-system, "Helvetica Neue", sans-serif;
+    font-weight: 600;
+    color: #0b2a4a;
+    border-bottom: 2px solid #0b2a4a;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #d4d8de;
+    margin: 1.6em 0;
+}
+
+/* Cover-style title block (pandoc generates this) */
+header#title-block-header {
+    text-align: center;
+    margin: 4em 0 5em;
+    page-break-after: always;
+}
+
+header#title-block-header h1.title {
+    font-size: 32pt;
+    border: none;
+    color: #0b2a4a;
+    margin-bottom: 0.4em;
+    page-break-before: avoid;
+}
+
+header#title-block-header p.subtitle {
+    font-size: 14pt;
+    color: #4a4a4a;
+    font-style: italic;
+    margin-bottom: 2em;
+}
+
+header#title-block-header p.author,
+header#title-block-header p.date {
+    font-size: 11pt;
+    color: #666;
+    margin: 0.2em 0;
+    font-family: -apple-system, "Helvetica Neue", sans-serif;
+}
+
+/* Avoid page breaks splitting code blocks or short sections poorly */
+pre, table, blockquote {
+    orphans: 3;
+    widows: 3;
+}

@@ -1,0 +1,22 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Local env files
+.env
+.env.local
+
+# Logs
+*.log
+
+# Local Claude Code guidance
+CLAUDE.md
+
+# Intermediate PDF render output (regenerated from .md + .css)
+docs/skillpulse-cicd-guide.html
+docs/skillpulse-kubernetes-guide.html
